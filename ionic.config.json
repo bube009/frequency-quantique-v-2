@@ -1,0 +1,8 @@
+{
+  "name": "Frequency Quantique v2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite",
+  "id": "7e962122"
+}
