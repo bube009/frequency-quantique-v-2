@@ -1,4 +1,0 @@
-:root {
-  --ion-background-color: #000;
-  --ion-text-color: #fff;
-}
