@@ -1,4 +1,4 @@
-tsimport { createApp } from 'vue';
+tsimport ; createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
