@@ -1,7 +1,0 @@
-{
-  "name": "Frequency Quantique",
-  "type": "vue",
-  "integrations": {
-    "capacitor": {}
-  }
-}
