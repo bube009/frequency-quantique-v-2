@@ -1,0 +1,11 @@
+{
+  "appId": "com.alexfournier.frequencyquantique",
+  "appName": "Frequency Quantique",
+  "webDir": "dist",
+  "ios": {
+    "buildNumber": "4",
+    "infoPlist": {
+      "CFBundleVersion": "4"
+    }
+  }
+}
