@@ -71,7 +71,7 @@ function playFrequency(freq) {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   oscillator = audioCtx.createOscillator();
   oscillator.type = 'sine';
-  oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime); 
   oscillator.connect(audioCtx.destination);
   oscillator.start();
 }
