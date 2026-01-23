@@ -172,3 +172,16 @@ function startStressProgram() {
 
   playNext()
 }
+<style scoped>
+.stress-card {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    #0a2a43,
+    #3fa9f5
+  );
+}
+</style>
