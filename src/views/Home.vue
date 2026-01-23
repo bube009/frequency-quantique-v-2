@@ -142,3 +142,33 @@ function startEnergyProgram() {
 
   playNext()
 }
+function startStressProgram() {
+  stopSound()
+  status.value = 'Programme Stress / Anxiété en cours'
+
+  const sequence = [396, 417, 432]
+  let i = 0
+
+  function playNext() {
+    if (i >= sequence.length) {
+      stopSound()
+      status.value = 'Programme terminé'
+      return
+    }
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+    oscillator = audioCtx.createOscillator()
+    oscillator.type = 'sine'
+    oscillator.frequency.setValueAtTime(sequence[i], audioCtx.currentTime)
+    oscillator.connect(audioCtx.destination)
+    oscillator.start()
+
+    i++
+    timer = setTimeout(() => {
+      stopSound()
+      playNext()
+    }, 4 * 60 * 1000) // 4 minutes par fréquence
+  }
+
+  playNext()
+}
