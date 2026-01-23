@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
-"dependencies": {
+  } 
+  "dependencies": {
   "@ionic/vue": "^8.0.0",
   "@ionic/vue-router": "^8.0.0",
   "vue": "^3.4.0",
