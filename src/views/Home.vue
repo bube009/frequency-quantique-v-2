@@ -30,7 +30,23 @@
 <ion-button expand="block" color="success" @click="startEnergyProgram">
   ▶️ Démarrer Énergie
 </ion-button>
-    </ion-content>
+        <hr />
+
+  <div class="stress-card">
+    <h3>💙 Programme Stress / Anxiété</h3>
+
+    <p>
+      Fréquences : 396 Hz → 417 Hz → 432 Hz<br />
+      Durée totale : 12 minutes
+    </p>
+
+    <ion-button expand="block" color="light" @click="startStressProgram">
+      ▶️ Démarrer Relaxation
+    </ion-button>
+  </div>
+
+</ion-content>
+    
   </ion-page>
 </template>
 
@@ -172,16 +188,3 @@ function startStressProgram() {
 
   playNext()
 }
-<style scoped>
-.stress-card {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 16px;
-  color: white;
-  background: linear-gradient(
-    180deg,
-    #0a2a43,
-    #3fa9f5
-  );
-}
-</style>
