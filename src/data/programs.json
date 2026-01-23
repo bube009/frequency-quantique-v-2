@@ -1,0 +1,23 @@
+[
+  {
+    "id": "energie",
+    "label": "Énergie",
+    "frequencies": [528, 741],
+    "duration": 600,
+    "description": "Programme de stimulation douce et de vitalité"
+  },
+  {
+    "id": "stress",
+    "label": "Stress",
+    "frequencies": [432, 528],
+    "duration": 900,
+    "description": "Programme de relaxation et d’harmonisation"
+  },
+  {
+    "id": "anxiete",
+    "label": "Anxiété",
+    "frequencies": [396, 417, 432],
+    "duration": 1200,
+    "description": "Programme d’apaisement progressif"
+  }
+]
