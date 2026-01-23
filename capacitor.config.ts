@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Frequency Quantique',
   webDir: 'dist',
   ios: {
-    buildNumber: '2'
+    buildNumber: '3'
   }
 };
 
