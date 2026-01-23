@@ -18,6 +18,18 @@
       <ion-button expand="block" color="medium" @click="stopFrequency">
         ⏹ Stop
       </ion-button>
+      <hr />
+
+<h3>⚡ Programme Énergie</h3>
+
+<p>
+  Fréquences : 174 Hz → 285 Hz → 528 Hz<br />
+  Durée totale : 15 minutes
+</p>
+
+<ion-button expand="block" color="success" @click="startEnergyProgram">
+  ▶️ Démarrer Énergie
+</ion-button>
     </ion-content>
   </ion-page>
 </template>
@@ -98,4 +110,35 @@ function stopSound() {
   oscillator = null;
   audioCtx = null;
   clearInterval(timer);
+}
+let programTimer: number | null = null
+
+function startEnergyProgram() {
+  stopFrequency()
+
+  const sequence = [
+    { freq: 174, duration: 5 * 60 * 1000 }, // 5 min
+    { freq: 285, duration: 5 * 60 * 1000 }, // 5 min
+    { freq: 528, duration: 5 * 60 * 1000 }  // 5 min
+  ]
+
+  let index = 0
+
+  function playNext() {
+    if (index >= sequence.length) {
+      stopFrequency()
+      status.value = 'Programme Énergie terminé'
+      return
+    }
+
+    startFrequency(sequence[index].freq)
+    status.value = `Énergie – ${sequence[index].freq} Hz`
+
+    programTimer = window.setTimeout(() => {
+      index++
+      playNext()
+    }, sequence[index].duration)
+  }
+
+  playNext()
 }
