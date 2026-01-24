@@ -81,6 +81,25 @@
   </ion-item>
 </ion-list>
 
+      <hr />
+
+<h3>⏱️ Mini Timer Pack</h3>
+
+<ion-button expand="block" color="medium" @click="startWithTimer(5)">
+  ▶️ 5 minutes
+</ion-button>
+
+<ion-button expand="block" color="medium" @click="startWithTimer(10)">
+  ▶️ 10 minutes
+</ion-button>
+
+<ion-button expand="block" color="medium" @click="startWithTimer(15)">
+  ▶️ 15 minutes
+</ion-button>
+
+<ion-button expand="block" color="medium" @click="startWithTimer(20)">
+  ▶️ 20 minutes
+</ion-button>
 </ion-content>
     
   </ion-page>
@@ -142,6 +161,19 @@ const stopFrequency = () => {
   status.value = '⏹️ Programme arrêté'
 }
 </script>
+let globalTimer: number | null = null
+
+function startWithTimer(minutes: number) {
+  status.value = `⏳ Session ${minutes} min en cours`
+
+  if (globalTimer) {
+    clearTimeout(globalTimer)
+  }
+
+  globalTimer = window.setTimeout(() => {
+    stopAll()
+  }, minutes * 60 * 1000)
+}
 import programs from '@/data/programs.json';
 
 let audioCtx = null;
