@@ -6,6 +6,14 @@
       </ion-toolbar>
     </ion-header>
 
+    <ion-button expand="block" @click="runProgram('stress_anxiete')">
+  ▶️ Stress / Anxiété
+</ion-button>
+
+<ion-button expand="block" @click="runProgram('energie')">
+  ▶️ Énergie
+</ion-button>
+
     <ion-content class="ion-padding">
       <h2>Accueil OK</h2>
 
@@ -219,6 +227,35 @@ function playStressStep() {
     stressIndex++
     playStressStep()
   }, step.duration * 1000)
+}
+import grimoire from '@/data/grimoire.json'
+
+let runTimer: number | null = null
+let runIndex = 0
+let runSteps: { freq: number; durationMin: number }[] = []
+
+function runProgram(key: string) {
+  stopSound()
+  runIndex = 0
+  runSteps = grimoire[key].steps
+  playStep()
+}
+
+function playStep() {
+  if (runIndex >= runSteps.length) {
+    stopSound()
+    status.value = 'Programme terminé'
+    return
+  }
+
+  const step = runSteps[runIndex]
+  playFrequency(step.freq)
+  status.value = `${step.freq} Hz — ${step.durationMin} min`
+
+  runTimer = window.setTimeout(() => {
+    runIndex++
+    playStep()
+  }, step.durationMin * 60 * 1000)
 }
 <style scoped>
 .stress-card {
