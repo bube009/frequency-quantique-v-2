@@ -1,6 +1,0 @@
-[
-  { "id": "heart", "name": "Cœur", "frequency": 528 },
-  { "id": "brain", "name": "Cerveau", "frequency": 963 },
-  { "id": "immune", "name": "Immunité", "frequency": 432 },
-  { "id": "stress", "name": "Stress", "frequency": 396 }
-]

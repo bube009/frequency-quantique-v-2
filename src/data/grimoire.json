@@ -1,0 +1,20 @@
+{
+  "stress_anxiete": {
+    "label": "Stress / Anxiété",
+    "color": "blue",
+    "steps": [
+      { "freq": 396, "durationMin": 16 },
+      { "freq": 417, "durationMin": 14 },
+      { "freq": 432, "durationMin": 12 }
+    ]
+  },
+  "energie": {
+    "label": "Énergie",
+    "color": "orange",
+    "steps": [
+      { "freq": 174, "durationMin": 5 },
+      { "freq": 285, "durationMin": 5 },
+      { "freq": 528, "durationMin": 5 }
+    ]
+  }
+}
