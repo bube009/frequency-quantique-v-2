@@ -1,93 +1,81 @@
 {
   "stress_anxiete": {
-    "label": "Stress / Anxiété",
-    "color": "blue",
+    "label": "💙 Stress / Anxiété",
     "steps": [
-      { "freq": 396, "durationMin": 16 },
-      { "freq": 417, "durationMin": 14 },
-      { "freq": 432, "durationMin": 12 }
-    ]
-  },
-
-  "energie": {
-    "label": "Énergie",
-    "color": "orange",
-    "steps": [
-      { "freq": 174, "durationMin": 5 },
-      { "freq": 285, "durationMin": 5 },
-      { "freq": 528, "durationMin": 5 }
+      { "freq": 396, "duration": 480 },
+      { "freq": 417, "duration": 420 },
+      { "freq": 432, "duration": 360 }
     ]
   },
 
   "sommeil": {
-    "label": "Sommeil",
-    "color": "indigo",
+    "label": "🌙 Sommeil profond",
     "steps": [
-      { "freq": 396, "durationMin": 10 },
-      { "freq": 432, "durationMin": 15 },
-      { "freq": 528, "durationMin": 20 }
+      { "freq": 432, "duration": 600 },
+      { "freq": 528, "duration": 600 }
     ]
   },
 
-  "relaxation_profonde": {
-    "label": "Relaxation profonde",
-    "color": "teal",
+  "energie": {
+    "label": "⚡ Énergie vitale",
     "steps": [
-      { "freq": 417, "durationMin": 12 },
-      { "freq": 432, "durationMin": 18 }
+      { "freq": 174, "duration": 300 },
+      { "freq": 285, "duration": 300 },
+      { "freq": 528, "duration": 300 }
     ]
   },
 
-  "focus": {
-    "label": "Concentration / Focus",
-    "color": "yellow",
+  "concentration": {
+    "label": "🧠 Concentration",
     "steps": [
-      { "freq": 440, "durationMin": 10 },
-      { "freq": 528, "durationMin": 10 }
+      { "freq": 417, "duration": 420 },
+      { "freq": 852, "duration": 360 }
     ]
   },
 
-  "clarte_mentale": {
-    "label": "Clarté mentale",
-    "color": "cyan",
+  "relaxation": {
+    "label": "🫧 Relaxation profonde",
     "steps": [
-      { "freq": 417, "durationMin": 12 },
-      { "freq": 741, "durationMin": 8 }
+      { "freq": 396, "duration": 600 },
+      { "freq": 432, "duration": 600 }
     ]
   },
 
-  "detox_emotionnel": {
-    "label": "Détox émotionnelle",
-    "color": "green",
+  "immunite": {
+    "label": "🛡️ Immunité",
     "steps": [
-      { "freq": 396, "durationMin": 15 },
-      { "freq": 417, "durationMin": 10 }
+      { "freq": 528, "duration": 480 },
+      { "freq": 741, "duration": 420 }
     ]
   },
 
-  "equilibre": {
-    "label": "Équilibre / Harmonisation",
-    "color": "blue",
+  "douleurs": {
+    "label": "🦴 Douleurs corporelles",
     "steps": [
-      { "freq": 432, "durationMin": 20 }
+      { "freq": 174, "duration": 420 },
+      { "freq": 285, "duration": 420 }
     ]
   },
 
-  "coeur": {
-    "label": "Cohérence cardiaque",
-    "color": "red",
+  "detox": {
+    "label": "🌿 Détoxification",
     "steps": [
-      { "freq": 528, "durationMin": 15 }
+      { "freq": 396, "duration": 480 },
+      { "freq": 528, "duration": 480 }
     ]
   },
 
-  "energie_douce": {
-    "label": "Énergie douce",
-    "color": "orange",
+  "respiration": {
+    "label": "🌬️ Respiration",
     "steps": [
-      { "freq": 174, "durationMin": 8 },
-      { "freq": 285, "durationMin": 8 },
-      { "freq": 432, "durationMin": 8 }
+      { "freq": 174, "duration": 600 }
+    ]
+  },
+
+  "meditation": {
+    "label": "🧘 Méditation",
+    "steps": [
+      { "freq": 432, "duration": 900 }
     ]
   }
 }
