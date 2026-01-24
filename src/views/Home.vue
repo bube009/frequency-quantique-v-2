@@ -188,6 +188,38 @@ function startStressProgram() {
 
   playNext()
 }
+// === PROGRAMME STRESS / ANXIÉTÉ (GRIMOIRE) ===
+const stressProgram = [
+  { freq: 396, duration: 16 * 60 }, // 16 min
+  { freq: 417, duration: 14 * 60 }, // 14 min
+  { freq: 432, duration: 12 * 60 }  // 12 min
+]
+
+let stressIndex = 0
+let stressTimer: number | null = null
+
+function startStressProgram() {
+  stopSound()
+  stressIndex = 0
+  playStressStep()
+}
+
+function playStressStep() {
+  if (stressIndex >= stressProgram.length) {
+    stopSound()
+    status.value = 'Programme Stress terminé'
+    return
+  }
+
+  const step = stressProgram[stressIndex]
+  playFrequency(step.freq)
+  status.value = `Stress : ${step.freq} Hz`
+
+  stressTimer = window.setTimeout(() => {
+    stressIndex++
+    playStressStep()
+  }, step.duration * 1000)
+}
 <style scoped>
 .stress-card {
   margin-top: 20px;
@@ -201,3 +233,9 @@ function startStressProgram() {
   );
 }
 </style>
+.stress-card {
+  background: linear-gradient(180deg, #0b2c4d, #7ecbff);
+  color: white;
+  padding: 16px;
+  border-radius: 16px;
+}
