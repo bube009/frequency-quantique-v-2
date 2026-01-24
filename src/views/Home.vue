@@ -114,6 +114,25 @@ const stopFrequency = () => {
 
   status.value = 'Fréquence arrêtée'
 }
+  function stopAll() {
+  if (oscillator) {
+    oscillator.stop()
+    oscillator.disconnect()
+    oscillator = null
+  }
+
+  if (audioCtx) {
+    audioCtx.close()
+    audioCtx = null
+  }
+
+  if (stressTimer) {
+    clearTimeout(stressTimer)
+    stressTimer = null
+  }
+
+  status.value = '⏹️ Programme arrêté'
+}
 </script>
 import programs from '@/data/programs.json';
 
