@@ -6,6 +6,14 @@
       </ion-toolbar>
     </ion-header>
 
+    <ion-button
+  expand="block"
+  color="danger"
+  @click="stopAll"
+>
+  ⏹️ STOP GLOBAL
+</ion-button>
+    
     <p v-if="currentFreq">
   ⏱ {{ Math.floor(timeLeft / 60) }}:{{ String(timeLeft % 60).padStart(2,'0') }}
   — {{ currentFreq }} Hz
