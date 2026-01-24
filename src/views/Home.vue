@@ -6,6 +6,11 @@
       </ion-toolbar>
     </ion-header>
 
+    <p v-if="currentFreq">
+  ⏱ {{ Math.floor(timeLeft / 60) }}:{{ String(timeLeft % 60).padStart(2,'0') }}
+  — {{ currentFreq }} Hz
+</p>
+    
     <ion-button expand="block" @click="runProgram('stress_anxiete')">
   ▶️ Stress / Anxiété
 </ion-button>
@@ -52,6 +57,21 @@
       ▶️ Démarrer Relaxation
     </ion-button>
   </div>
+      <h3>📋 Programmes</h3>
+
+<ion-list>
+  <ion-item
+    v-for="(prog, key) in grimoire"
+    :key="key"
+    button
+    @click="runProgram(key)"
+  >
+    <ion-label>
+      <strong>{{ prog.label }}</strong><br />
+      {{ totalDuration(prog.steps) }} min
+    </ion-label>
+  </ion-item>
+</ion-list>
 
 </ion-content>
     
@@ -251,6 +271,50 @@ function playStep() {
   const step = runSteps[runIndex]
   playFrequency(step.freq)
   status.value = `${step.freq} Hz — ${step.durationMin} min`
+
+  runTimer = window.setTimeout(() => {
+    runIndex++
+    playStep()
+  }, step.durationMin * 60 * 1000)
+}
+import { ref } from 'vue'
+import grimoire from '@/data/grimoire.json'
+
+const timeLeft = ref(0)
+const currentFreq = ref<number | null>(null)
+
+function totalDuration(steps: any[]) {
+  return steps.reduce((s, x) => s + x.durationMin, 0)
+}
+
+function runProgram(key: string) {
+  stopSound()
+  runIndex = 0
+  runSteps = grimoire[key].steps
+  timeLeft.value = totalDuration(runSteps) * 60
+  playStep()
+}
+
+function playStep() {
+  if (runIndex >= runSteps.length) {
+    stopSound()
+    status.value = 'Programme terminé'
+    currentFreq.value = null
+    return
+  }
+
+  const step = runSteps[runIndex]
+  playFrequency(step.freq)
+  currentFreq.value = step.freq
+  status.value = `${step.freq} Hz`
+
+  let stepSeconds = step.durationMin * 60
+
+  const tick = setInterval(() => {
+    stepSeconds--
+    timeLeft.value--
+    if (stepSeconds <= 0) clearInterval(tick)
+  }, 1000)
 
   runTimer = window.setTimeout(() => {
     runIndex++
