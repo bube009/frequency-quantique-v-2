@@ -8,6 +8,7 @@
       { "freq": 432, "durationMin": 12 }
     ]
   },
+
   "energie": {
     "label": "Énergie",
     "color": "orange",
@@ -15,6 +16,78 @@
       { "freq": 174, "durationMin": 5 },
       { "freq": 285, "durationMin": 5 },
       { "freq": 528, "durationMin": 5 }
+    ]
+  },
+
+  "sommeil": {
+    "label": "Sommeil",
+    "color": "indigo",
+    "steps": [
+      { "freq": 396, "durationMin": 10 },
+      { "freq": 432, "durationMin": 15 },
+      { "freq": 528, "durationMin": 20 }
+    ]
+  },
+
+  "relaxation_profonde": {
+    "label": "Relaxation profonde",
+    "color": "teal",
+    "steps": [
+      { "freq": 417, "durationMin": 12 },
+      { "freq": 432, "durationMin": 18 }
+    ]
+  },
+
+  "focus": {
+    "label": "Concentration / Focus",
+    "color": "yellow",
+    "steps": [
+      { "freq": 440, "durationMin": 10 },
+      { "freq": 528, "durationMin": 10 }
+    ]
+  },
+
+  "clarte_mentale": {
+    "label": "Clarté mentale",
+    "color": "cyan",
+    "steps": [
+      { "freq": 417, "durationMin": 12 },
+      { "freq": 741, "durationMin": 8 }
+    ]
+  },
+
+  "detox_emotionnel": {
+    "label": "Détox émotionnelle",
+    "color": "green",
+    "steps": [
+      { "freq": 396, "durationMin": 15 },
+      { "freq": 417, "durationMin": 10 }
+    ]
+  },
+
+  "equilibre": {
+    "label": "Équilibre / Harmonisation",
+    "color": "blue",
+    "steps": [
+      { "freq": 432, "durationMin": 20 }
+    ]
+  },
+
+  "coeur": {
+    "label": "Cohérence cardiaque",
+    "color": "red",
+    "steps": [
+      { "freq": 528, "durationMin": 15 }
+    ]
+  },
+
+  "energie_douce": {
+    "label": "Énergie douce",
+    "color": "orange",
+    "steps": [
+      { "freq": 174, "durationMin": 8 },
+      { "freq": 285, "durationMin": 8 },
+      { "freq": 432, "durationMin": 8 }
     ]
   }
 }
