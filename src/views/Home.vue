@@ -115,3 +115,11 @@ onUnmounted(stop)
   opacity: 0.85;
 }
 </style>
+ion-content {
+  --background: linear-gradient(
+    180deg,
+    #050b1a 0%,
+    #071a3a 40%,
+    #0b3a7a 100%
+  );
+}
