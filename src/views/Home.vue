@@ -1,24 +1,9 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Frequency Quantique v2</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
     <ion-content class="ion-padding">
+      <h1>Frequency Quantique v2</h1>
 
       <p><strong>Status :</strong> {{ status }}</p>
-
-      <ion-button expand="block" @click="playTest">
-        ▶️ Lancer fréquence test (440 Hz)
-      </ion-button>
-
-      <ion-button expand="block" color="medium" @click="stopSound">
-        ⏹ Stop
-      </ion-button>
-
-      <hr />
 
       <div
         v-for="(prog, key) in grimoire"
@@ -26,13 +11,24 @@
         class="program-card"
       >
         <h2>{{ prog.label }}</h2>
-        <p>⏱ {{ totalDuration(prog.steps) }} min</p>
+        <p>⏱️ {{ prog.minutes }} min — 🎵 {{ prog.freq }} Hz</p>
 
-        <ion-button expand="block" @click="runProgram(key)">
-          ▶️ Démarrer
+        <ion-button
+          expand="block"
+          color="primary"
+          @click="startProgram(prog)"
+        >
+          ▶ Démarrer
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          color="medium"
+          @click="stopProgram"
+        >
+          ⏹ Arrêter
         </ion-button>
       </div>
-
     </ion-content>
   </ion-page>
 </template>
@@ -42,66 +38,22 @@ import { ref } from 'vue'
 import grimoire from '../data/grimoire.json'
 
 const status = ref('Fréquence arrêtée')
-const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
-let oscillator: OscillatorNode | null = null
+let timer: number | null = null
 
-let runSteps: any[] = []
-let runIndex = 0
-let runTimer: number | null = null
-
-function playFrequency(freq: number) {
-  stopSound()
-  oscillator = audioCtx.createOscillator()
-  oscillator.type = 'sine'
-  oscillator.frequency.value = freq
-  oscillator.connect(audioCtx.destination)
-  oscillator.start()
+function startProgram(prog: any) {
+  stopProgram()
+  status.value = `${prog.freq} Hz — ${prog.minutes} min`
+  timer = window.setTimeout(() => {
+    stopProgram()
+  }, prog.minutes * 60 * 1000)
 }
 
-function stopSound() {
-  if (oscillator) {
-    oscillator.stop()
-    oscillator.disconnect()
-    oscillator = null
-  }
-  if (runTimer) {
-    clearTimeout(runTimer)
-    runTimer = null
+function stopProgram() {
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
   }
   status.value = 'Fréquence arrêtée'
-}
-
-function playTest() {
-  playFrequency(440)
-  status.value = '440 Hz'
-}
-
-function totalDuration(steps: any[]) {
-  return steps.reduce((s, x) => s + x.duration, 0)
-}
-
-function runProgram(key: string) {
-  stopSound()
-  runSteps = grimoire[key].steps
-  runIndex = 0
-  playStep()
-}
-
-function playStep() {
-  if (runIndex >= runSteps.length) {
-    stopSound()
-    status.value = 'Programme terminé'
-    return
-  }
-
-  const step = runSteps[runIndex]
-  playFrequency(step.freq)
-  status.value = `${step.freq} Hz`
-
-  runTimer = window.setTimeout(() => {
-    runIndex++
-    playStep()
-  }, step.duration * 60 * 1000)
 }
 </script>
 
