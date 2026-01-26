@@ -340,7 +340,7 @@ import { ref } from 'vue'
 import grimoire from '@/data/grimoire.json'
 
 const timeLeft = ref(0)
-const currentFreq = ref<number | null>(null)
+const currentFreq = ref<number | null>(null)</
 
 function totalDuration(steps: any[]) {
   return steps.reduce((s, x) => s + x.durationMin, 0)
