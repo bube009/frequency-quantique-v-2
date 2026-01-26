@@ -1,68 +1,117 @@
 <template>
   <ion-page>
-    <ion-content class="ion-padding">
-      <h1>Frequency Quantique v2</h1>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Frequency Quantique v2</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
+    <ion-content class="ion-padding">
       <p><strong>Status :</strong> {{ status }}</p>
 
       <div
-        v-for="(prog, key) in grimoire"
-        :key="key"
-        class="program-card"
+        v-for="p in programs"
+        :key="p.id"
+        class="card"
       >
-        <h2>{{ prog.label }}</h2>
-        <p>⏱️ {{ prog.minutes }} min — 🎵 {{ prog.freq }} Hz</p>
+        <div class="left">
+          <h2>{{ p.title }}</h2>
+          <p>{{ p.freq }} Hz — {{ p.min }} min</p>
+          <p class="bio">Bio : {{ bioValue }}</p>
 
-        <ion-button
-          expand="block"
-          color="primary"
-          @click="startProgram(prog)"
-        >
-          ▶ Démarrer
-        </ion-button>
+          <ion-button @click="start(p)" color="primary">
+            Démarrer
+          </ion-button>
+          <ion-button @click="stop" color="medium">
+            Arrêter
+          </ion-button>
+        </div>
 
-        <ion-button
-          expand="block"
-          color="medium"
-          @click="stopProgram"
-        >
-          ⏹ Arrêter
-        </ion-button>
+        <div class="wave"></div>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import grimoire from '../data/grimoire.json'
+import { ref, onMounted, onUnmounted } from 'vue'
+import programs from '../data/programs.json'
 
-const status = ref('Fréquence arrêtée')
+let audioCtx: AudioContext | null = null
+let osc: OscillatorNode | null = null
 let timer: number | null = null
 
-function startProgram(prog: any) {
-  stopProgram()
-  status.value = `${prog.freq} Hz — ${prog.minutes} min`
-  timer = window.setTimeout(() => {
-    stopProgram()
-  }, prog.minutes * 60 * 1000)
+const status = ref('Fréquence arrêtée')
+const bioValue = ref('—')
+
+/* 🔬 CAPTEUR BIO (SIMULÉ, PRÊT BLE / CAMÉRA) */
+let bioInterval: number | null = null
+function startBio() {
+  bioInterval = window.setInterval(() => {
+    bioValue.value = Math.round(60 + Math.random() * 40) + ' bpm'
+  }, 1000)
+}
+function stopBio() {
+  if (bioInterval) clearInterval(bioInterval)
+  bioValue.value = '—'
 }
 
-function stopProgram() {
-  if (timer) {
-    clearTimeout(timer)
-    timer = null
+/* 🔊 AUDIO */
+function start(p: any) {
+  stop()
+
+  audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+  osc = audioCtx.createOscillator()
+  osc.type = 'sine'
+  osc.frequency.value = p.freq
+  osc.connect(audioCtx.destination)
+  osc.start()
+
+  startBio()
+  status.value = `${p.title} — ${p.freq} Hz`
+
+  timer = window.setTimeout(stop, p.min * 60 * 1000)
+}
+
+function stop() {
+  if (osc) {
+    osc.stop()
+    osc.disconnect()
+    osc = null
   }
+  if (audioCtx) {
+    audioCtx.close()
+    audioCtx = null
+  }
+  if (timer) clearTimeout(timer)
+  stopBio()
   status.value = 'Fréquence arrêtée'
 }
+
+onUnmounted(stop)
 </script>
 
 <style scoped>
-.program-card {
-  margin-top: 16px;
-  padding: 16px;
-  border-radius: 16px;
+.card {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  padding: 20px;
+  border-radius: 20px;
   color: white;
-  background: linear-gradient(180deg, #0a2a43, #6ec6ff);
+  background: linear-gradient(160deg, #081c34, #0f4fa8);
+}
+
+.wave {
+  width: 80px;
+  height: 60px;
+  background: linear-gradient(90deg, #7ecbff, #ffffff);
+  border-radius: 12px;
+  opacity: 0.3;
+}
+
+.bio {
+  font-size: 0.9em;
+  opacity: 0.85;
 }
 </style>
