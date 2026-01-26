@@ -1,32 +1,29 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>Frequency Quantique v2</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
+    <ion-content class="ion-padding blue-bg">
 
       <h2>Accueil OK</h2>
 
-      <p>
-        Status :
-        <strong>{{ status }}</strong>
-      </p>
+      <p><strong>Status :</strong> {{ status }}</p>
 
-      <!-- TEST SIMPLE -->
-      <ion-button expand="block" color="primary" @click="playFrequency(440)">
+      <ion-button expand="block" @click="playTest">
         ▶️ Lancer fréquence test (440 Hz)
       </ion-button>
 
-      <ion-button expand="block" color="medium" @click="stopSound">
+      <ion-button expand="block" color="danger" @click="stopSound">
         ⏹ Stop
       </ion-button>
 
       <hr />
 
-      <!-- LISTE DES PROGRAMMES -->
+      <h3>⚡ Programmes</h3>
+
       <ion-list>
         <ion-item
           v-for="(prog, key) in grimoire"
@@ -41,16 +38,12 @@
         </ion-item>
       </ion-list>
 
-      <!-- INFOS PROGRAMME EN COURS -->
-      <div v-if="currentFreq !== null" class="stress-card">
-        <h3>🎧 Programme en cours</h3>
-        <p>Fréquence : {{ currentFreq }} Hz</p>
-        <p>Temps restant : {{ Math.ceil(timeLeft / 60) }} min</p>
-
-        <ion-button expand="block" color="light" @click="stopSound">
-          ⏹ Arrêter le programme
-        </ion-button>
-      </div>
+      <ion-card v-if="currentFreq">
+        <ion-card-content>
+          🔊 Fréquence en cours : <strong>{{ currentFreq }} Hz</strong><br />
+          ⏳ Temps restant : {{ Math.ceil(timeLeft / 60) }} min
+        </ion-card-content>
+      </ion-card>
 
     </ion-content>
   </ion-page>
@@ -58,67 +51,65 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import grimoire from '../data/grimoire.json'
+import grimoire from '@/data/grimoire.json'
 
-/* ===== ÉTAT ===== */
+/* AUDIO */
+let audioCtx: AudioContext | null = null
+let oscillator: OscillatorNode | null = null
+
 const status = ref('Fréquence arrêtée')
 const currentFreq = ref<number | null>(null)
 const timeLeft = ref(0)
-
-let audioCtx: AudioContext | null = null
-let oscillator: OscillatorNode | null = null
-let gainNode: GainNode | null = null
 
 let runSteps: any[] = []
 let runIndex = 0
 let runTimer: number | null = null
 
-/* ===== AUDIO ===== */
 function playFrequency(freq: number) {
   stopSound()
-
-  audioCtx = new AudioContext()
+  audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
   oscillator = audioCtx.createOscillator()
-  gainNode = audioCtx.createGain()
-
   oscillator.type = 'sine'
   oscillator.frequency.value = freq
-  gainNode.gain.value = 0.2
-
-  oscillator.connect(gainNode)
-  gainNode.connect(audioCtx.destination)
-
+  oscillator.connect(audioCtx.destination)
   oscillator.start()
-  status.value = `${freq} Hz`
 }
 
 function stopSound() {
-  if (oscillator) oscillator.stop()
-  if (audioCtx) audioCtx.close()
-
-  oscillator = null
-  audioCtx = null
-  gainNode = null
-
-  if (runTimer) window.clearTimeout(runTimer)
-
+  if (oscillator) {
+    oscillator.stop()
+    oscillator.disconnect()
+    oscillator = null
+  }
+  if (audioCtx) {
+    audioCtx.close()
+    audioCtx = null
+  }
+  if (runTimer) {
+    clearTimeout(runTimer)
+    runTimer = null
+  }
   currentFreq.value = null
-  timeLeft.value = 0
   status.value = 'Fréquence arrêtée'
 }
 
-/* ===== PROGRAMMES ===== */
+/* TEST */
+function playTest() {
+  playFrequency(440)
+  status.value = 'Test 440 Hz'
+}
+
+/* PROGRAMMES */
 function totalDuration(steps: any[]) {
-  return Math.round(
-    steps.reduce((s, x) => s + x.duration, 0) / 60
-  )
+  return steps.reduce((s, x) => s + x.duration, 0)
 }
 
 function runProgram(key: string) {
   stopSound()
-  runIndex = 0
   runSteps = grimoire[key].steps
-  timeLeft.value = runSteps.reduce((s, x) => s + x.duration, 0)
+  runIndex = 0
+  timeLeft.value = totalDuration(runSteps) * 60
+  status.value = grimoire[key].label
   playStep()
 }
 
@@ -133,27 +124,32 @@ function playStep() {
   playFrequency(step.freq)
   currentFreq.value = step.freq
 
-  let seconds = step.duration
-
-  const tick = setInterval(() => {
-    seconds--
-    timeLeft.value--
-    if (seconds <= 0) clearInterval(tick)
-  }, 1000)
-
   runTimer = window.setTimeout(() => {
     runIndex++
     playStep()
-  }, step.duration * 1000)
+  }, step.duration * 60 * 1000)
+
+  const tick = setInterval(() => {
+    timeLeft.value--
+    if (timeLeft.value <= 0) clearInterval(tick)
+  }, 1000)
 }
 </script>
 
 <style scoped>
-.stress-card {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 16px;
+.blue-bg {
+  background: linear-gradient(180deg, #0b2c4d, #6ec6ff);
   color: white;
-  background: linear-gradient(180deg, #0b2c4d, #7ecbff);
+}
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.12);
+  --color: white;
+}
+
+ion-card {
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
 }
 </style>
