@@ -8,25 +8,16 @@
 
     <ion-content class="ion-padding">
 
-      <h2>Accueil OK</h2>
+      <p><strong>Status :</strong> {{ status }}</p>
 
-      <p>
-        Status :
-        <strong>{{ status }}</strong>
-      </p>
-
-      <!-- TEST SIMPLE -->
-      <ion-button expand="block" color="primary" @click="startTest">
-        ▶ Lancer fréquence test (440 Hz)
+      <ion-button expand="block" @click="playTest">
+        ▶ Test 440 Hz
       </ion-button>
 
-      <ion-button expand="block" color="medium" @click="stopSound">
+      <ion-button expand="block" color="medium" @click="stopAll">
         ⏹ Stop
       </ion-button>
 
-      <hr />
-
-      <!-- LISTE DES PROGRAMMES -->
       <ion-list>
         <ion-item
           v-for="(prog, key) in grimoire"
@@ -41,15 +32,12 @@
         </ion-item>
       </ion-list>
 
-      <!-- INFO PROGRAMME EN COURS -->
-      <div v-if="currentFreq !== null" class="stress-card">
-        <p>🎵 Fréquence actuelle : {{ currentFreq }} Hz</p>
-        <p>⏳ Temps restant : {{ Math.ceil(timeLeft / 60) }} min</p>
-
-        <ion-button expand="block" color="light" @click="stopSound">
-          ⏹ Arrêter le programme
-        </ion-button>
-      </div>
+      <ion-card v-if="currentFreq">
+        <ion-card-content>
+          🔊 Fréquence : {{ currentFreq }} Hz<br />
+          ⏳ Temps restant : {{ timeLeft }} s
+        </ion-card-content>
+      </ion-card>
 
     </ion-content>
   </ion-page>
@@ -59,30 +47,26 @@
 import { ref } from 'vue'
 import grimoire from '@/data/grimoire.json'
 
-/* ---------- AUDIO ---------- */
+const status = ref('Fréquence arrêtée')
+const currentFreq = ref<number | null>(null)
+const timeLeft = ref(0)
+
 let audioCtx: AudioContext | null = null
 let oscillator: OscillatorNode | null = null
 let runTimer: number | null = null
 let runIndex = 0
 let runSteps: any[] = []
 
-/* ---------- STATE ---------- */
-const status = ref('Fréquence arrêtée')
-const currentFreq = ref<number | null>(null)
-const timeLeft = ref(0)
-
-/* ---------- AUDIO CORE ---------- */
 function playFrequency(freq: number) {
-  stopSound()
+  stopAll()
   audioCtx = new AudioContext()
   oscillator = audioCtx.createOscillator()
-  oscillator.type = 'sine'
   oscillator.frequency.value = freq
   oscillator.connect(audioCtx.destination)
   oscillator.start()
 }
 
-function stopSound() {
+function stopAll() {
   if (oscillator) {
     oscillator.stop()
     oscillator.disconnect()
@@ -100,19 +84,17 @@ function stopSound() {
   status.value = 'Fréquence arrêtée'
 }
 
-/* ---------- TEST ---------- */
-function startTest() {
+function playTest() {
   playFrequency(440)
   status.value = 'Test 440 Hz'
 }
 
-/* ---------- PROGRAMMES ---------- */
 function totalDuration(steps: any[]) {
   return Math.round(steps.reduce((s, x) => s + x.duration, 0) / 60)
 }
 
 function runProgram(key: string) {
-  stopSound()
+  stopAll()
   runIndex = 0
   runSteps = grimoire[key].steps
   timeLeft.value = runSteps.reduce((s, x) => s + x.duration, 0)
@@ -121,7 +103,7 @@ function runProgram(key: string) {
 
 function playStep() {
   if (runIndex >= runSteps.length) {
-    stopSound()
+    stopAll()
     status.value = 'Programme terminé'
     return
   }
@@ -131,27 +113,14 @@ function playStep() {
   currentFreq.value = step.freq
   status.value = `${step.freq} Hz`
 
-  let remaining = step.duration
-
-  const tick = setInterval(() => {
-    remaining--
-    timeLeft.value--
-    if (remaining <= 0) clearInterval(tick)
-  }, 1000)
-
   runTimer = window.setTimeout(() => {
     runIndex++
     playStep()
   }, step.duration * 1000)
+
+  const tick = setInterval(() => {
+    timeLeft.value--
+    if (timeLeft.value <= 0) clearInterval(tick)
+  }, 1000)
 }
 </script>
-
-<style scoped>
-.stress-card {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 16px;
-  color: white;
-  background: linear-gradient(180deg, #0a2a43, #6ec6ff);
-}
-</style>
