@@ -10,13 +10,10 @@
 
       <h2>Accueil OK</h2>
 
-      <p>
-        Status :
-        <strong>{{ status }}</strong>
-      </p>
+      <p>Status : <strong>{{ status }}</strong></p>
 
       <ion-button expand="block" color="primary" @click="startTest">
-        ▶️ Lancer fréquence test (440 Hz)
+        ▶️ Test 440 Hz
       </ion-button>
 
       <ion-button expand="block" color="medium" @click="stopAll">
@@ -25,40 +22,25 @@
 
       <hr />
 
-      <!-- PROGRAMME ÉNERGIE -->
-      <h3>⚡ Programme Énergie</h3>
-      <p>
-        Fréquences : 174 → 285 → 528 Hz<br />
-        Durée totale : 15 minutes
-      </p>
+      <!-- LISTE DES PROGRAMMES -->
+      <ion-list>
+        <ion-item
+          v-for="(prog, key) in grimoire"
+          :key="key"
+          button
+          @click="runProgram(key)"
+        >
+          <ion-label>
+            <strong>{{ prog.label }}</strong><br />
+            {{ totalDuration(prog.steps) }} minutes
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
-      <ion-button expand="block" color="success" @click="runProgram('energie')">
-        ▶️ Démarrer Énergie
-      </ion-button>
-
-      <!-- PROGRAMME STRESS -->
-      <div class="stress-card">
-        <h3>💙 Programme Stress / Anxiété</h3>
-
-        <p>
-          Fréquences : 396 → 417 → 432 Hz<br />
-          Durée totale : 12 minutes
-        </p>
-
-        <ion-button expand="block" color="light" @click="runProgram('stress')">
-          ▶️ Démarrer Relaxation
-        </ion-button>
+      <div v-if="currentFreq !== null" class="stress-card">
+        🔊 {{ currentFreq }} Hz<br />
+        ⏱ {{ Math.floor(timeLeft / 60) }} min {{ timeLeft % 60 }} s
       </div>
-
-      <hr />
-
-      <p v-if="currentFreq !== null">
-        🔊 Fréquence en cours : <strong>{{ currentFreq }} Hz</strong>
-      </p>
-
-      <p v-if="timeLeft > 0">
-        ⏱ Temps restant : {{ Math.floor(timeLeft / 60) }} min {{ timeLeft % 60 }} s
-      </p>
 
     </ion-content>
   </ion-page>
@@ -66,38 +48,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import grimoire from '@/data/grimoire.json'
 
-/* ====== AUDIO ====== */
+/* ===== AUDIO ===== */
 let audioCtx: AudioContext | null = null
 let oscillator: OscillatorNode | null = null
-let runTimer: number | null = null
+let timer: number | null = null
 let runIndex = 0
 let runSteps: any[] = []
 
-/* ====== STATE ====== */
+/* ===== STATE ===== */
 const status = ref('Fréquence arrêtée')
 const timeLeft = ref(0)
 const currentFreq = ref<number | null>(null)
 
-/* ====== GRIMOIRE MINIMAL (TEST) ====== */
-const grimoire: Record<string, any> = {
-  energie: {
-    steps: [
-      { freq: 174, durationMin: 5 },
-      { freq: 285, durationMin: 5 },
-      { freq: 528, durationMin: 5 }
-    ]
-  },
-  stress: {
-    steps: [
-      { freq: 396, durationMin: 4 },
-      { freq: 417, durationMin: 4 },
-      { freq: 432, durationMin: 4 }
-    ]
-  }
-}
-
-/* ====== AUDIO CORE ====== */
+/* ===== CORE ===== */
 function playFrequency(freq: number) {
   stopSound()
   audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
@@ -109,34 +74,25 @@ function playFrequency(freq: number) {
 }
 
 function stopSound() {
-  if (runTimer) {
-    clearTimeout(runTimer)
-    runTimer = null
+  if (timer) {
+    clearTimeout(timer)
+    timer = null
   }
-
   if (oscillator) {
     oscillator.stop()
     oscillator.disconnect()
     oscillator = null
   }
-
   if (audioCtx) {
     audioCtx.close()
     audioCtx = null
   }
-
-  status.value = 'Fréquence arrêtée'
   currentFreq.value = null
   timeLeft.value = 0
+  status.value = 'Fréquence arrêtée'
 }
 
-/* ====== TEST ====== */
-function startTest() {
-  playFrequency(440)
-  status.value = 'Test 440 Hz'
-}
-
-/* ====== PROGRAMME ====== */
+/* ===== PROGRAMMES ===== */
 function totalDuration(steps: any[]) {
   return steps.reduce((s, x) => s + x.durationMin, 0)
 }
@@ -161,18 +117,24 @@ function playStep() {
   currentFreq.value = step.freq
   status.value = `${step.freq} Hz`
 
-  let stepSeconds = step.durationMin * 60
+  let seconds = step.durationMin * 60
 
   const tick = setInterval(() => {
-    stepSeconds--
+    seconds--
     timeLeft.value--
-    if (stepSeconds <= 0) clearInterval(tick)
+    if (seconds <= 0) clearInterval(tick)
   }, 1000)
 
-  runTimer = window.setTimeout(() => {
+  timer = window.setTimeout(() => {
     runIndex++
     playStep()
   }, step.durationMin * 60 * 1000)
+}
+
+/* ===== TEST ===== */
+function startTest() {
+  playFrequency(440)
+  status.value = 'Test 440 Hz'
 }
 
 function stopAll() {
@@ -186,10 +148,6 @@ function stopAll() {
   padding: 16px;
   border-radius: 16px;
   color: white;
-  background: linear-gradient(
-    180deg,
-    #0b2c4d,
-    #7ecbff
-  );
+  background: linear-gradient(180deg, #0b2c4d, #7ecbff);
 }
 </style>
