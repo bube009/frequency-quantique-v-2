@@ -1,23 +1,27 @@
 [
-  {
-    "id": "energie",
-    "label": "Énergie",
-    "frequencies": [528, 741],
-    "duration": 600,
-    "description": "Programme de stimulation douce et de vitalité"
-  },
-  {
-    "id": "stress",
-    "label": "Stress",
-    "frequencies": [432, 528],
-    "duration": 900,
-    "description": "Programme de relaxation et d’harmonisation"
-  },
-  {
-    "id": "anxiete",
-    "label": "Anxiété",
-    "frequencies": [396, 417, 432],
-    "duration": 1200,
-    "description": "Programme d’apaisement progressif"
-  }
+  { "id": "stress", "title": "Stress – Général", "freq": 396, "min": 15 },
+  { "id": "anxiety", "title": "Anxiété", "freq": 417, "min": 21 },
+  { "id": "sleep", "title": "Sommeil profond", "freq": 174, "min": 15 },
+  { "id": "detox", "title": "Détoxification", "freq": 528, "min": 20 },
+  { "id": "meditation", "title": "Méditation", "freq": 432, "min": 16 },
+  { "id": "respiration", "title": "Respiration", "freq": 174, "min": 15 },
+  { "id": "focus", "title": "Concentration", "freq": 285, "min": 10 },
+  { "id": "memory", "title": "Mémoire", "freq": 639, "min": 20 },
+  { "id": "creativity", "title": "Créativité", "freq": 417, "min": 15 },
+  { "id": "joy", "title": "Joie / Humeur", "freq": 528, "min": 20 },
+  { "id": "immunity", "title": "Immunité", "freq": 741, "min": 15 },
+  { "id": "digestion", "title": "Digestion", "freq": 285, "min": 20 },
+  { "id": "heart", "title": "Cœur", "freq": 639, "min": 15 },
+  { "id": "lungs", "title": "Poumons", "freq": 174, "min": 15 },
+  { "id": "liver", "title": "Foie", "freq": 528, "min": 20 },
+  { "id": "kidneys", "title": "Reins", "freq": 417, "min": 15 },
+  { "id": "intestine", "title": "Intestin", "freq": 285, "min": 15 },
+  { "id": "chakra_root", "title": "Chakra Racine", "freq": 396, "min": 20 },
+  { "id": "chakra_sacral", "title": "Chakra Sacral", "freq": 417, "min": 15 },
+  { "id": "chakra_plexus", "title": "Chakra Plexus", "freq": 528, "min": 15 },
+  { "id": "chakra_heart", "title": "Chakra Cœur", "freq": 639, "min": 15 },
+  { "id": "chakra_throat", "title": "Chakra Gorge", "freq": 741, "min": 15 },
+  { "id": "chakra_thirdeye", "title": "Chakra 3e Œil", "freq": 852, "min": 15 },
+  { "id": "chakra_crown", "title": "Chakra Couronne", "freq": 963, "min": 15 },
+  { "id": "antifatigue", "title": "Anti-fatigue", "freq": 528, "min": 20 }
 ]
