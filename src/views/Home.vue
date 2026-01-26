@@ -10,13 +10,17 @@
 
       <h2>Accueil OK</h2>
 
-      <p>Status : <strong>{{ status }}</strong></p>
+      <p>
+        Status :
+        <strong>{{ status }}</strong>
+      </p>
 
+      <!-- TEST SIMPLE -->
       <ion-button expand="block" color="primary" @click="startTest">
-        ▶️ Test 440 Hz
+        ▶ Lancer fréquence test (440 Hz)
       </ion-button>
 
-      <ion-button expand="block" color="medium" @click="stopAll">
+      <ion-button expand="block" color="medium" @click="stopSound">
         ⏹ Stop
       </ion-button>
 
@@ -32,14 +36,19 @@
         >
           <ion-label>
             <strong>{{ prog.label }}</strong><br />
-            {{ totalDuration(prog.steps) }} minutes
+            ⏱ {{ totalDuration(prog.steps) }} min
           </ion-label>
         </ion-item>
       </ion-list>
 
+      <!-- INFO PROGRAMME EN COURS -->
       <div v-if="currentFreq !== null" class="stress-card">
-        🔊 {{ currentFreq }} Hz<br />
-        ⏱ {{ Math.floor(timeLeft / 60) }} min {{ timeLeft % 60 }} s
+        <p>🎵 Fréquence actuelle : {{ currentFreq }} Hz</p>
+        <p>⏳ Temps restant : {{ Math.ceil(timeLeft / 60) }} min</p>
+
+        <ion-button expand="block" color="light" @click="stopSound">
+          ⏹ Arrêter le programme
+        </ion-button>
       </div>
 
     </ion-content>
@@ -50,34 +59,30 @@
 import { ref } from 'vue'
 import grimoire from '@/data/grimoire.json'
 
-/* ===== AUDIO ===== */
+/* ---------- AUDIO ---------- */
 let audioCtx: AudioContext | null = null
 let oscillator: OscillatorNode | null = null
-let timer: number | null = null
+let runTimer: number | null = null
 let runIndex = 0
 let runSteps: any[] = []
 
-/* ===== STATE ===== */
+/* ---------- STATE ---------- */
 const status = ref('Fréquence arrêtée')
-const timeLeft = ref(0)
 const currentFreq = ref<number | null>(null)
+const timeLeft = ref(0)
 
-/* ===== CORE ===== */
+/* ---------- AUDIO CORE ---------- */
 function playFrequency(freq: number) {
   stopSound()
-  audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+  audioCtx = new AudioContext()
   oscillator = audioCtx.createOscillator()
   oscillator.type = 'sine'
-  oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime)
+  oscillator.frequency.value = freq
   oscillator.connect(audioCtx.destination)
   oscillator.start()
 }
 
 function stopSound() {
-  if (timer) {
-    clearTimeout(timer)
-    timer = null
-  }
   if (oscillator) {
     oscillator.stop()
     oscillator.disconnect()
@@ -87,21 +92,30 @@ function stopSound() {
     audioCtx.close()
     audioCtx = null
   }
+  if (runTimer) {
+    clearTimeout(runTimer)
+    runTimer = null
+  }
   currentFreq.value = null
-  timeLeft.value = 0
   status.value = 'Fréquence arrêtée'
 }
 
-/* ===== PROGRAMMES ===== */
+/* ---------- TEST ---------- */
+function startTest() {
+  playFrequency(440)
+  status.value = 'Test 440 Hz'
+}
+
+/* ---------- PROGRAMMES ---------- */
 function totalDuration(steps: any[]) {
-  return steps.reduce((s, x) => s + x.durationMin, 0)
+  return Math.round(steps.reduce((s, x) => s + x.duration, 0) / 60)
 }
 
 function runProgram(key: string) {
   stopSound()
   runIndex = 0
   runSteps = grimoire[key].steps
-  timeLeft.value = totalDuration(runSteps) * 60
+  timeLeft.value = runSteps.reduce((s, x) => s + x.duration, 0)
   playStep()
 }
 
@@ -117,28 +131,18 @@ function playStep() {
   currentFreq.value = step.freq
   status.value = `${step.freq} Hz`
 
-  let seconds = step.durationMin * 60
+  let remaining = step.duration
 
   const tick = setInterval(() => {
-    seconds--
+    remaining--
     timeLeft.value--
-    if (seconds <= 0) clearInterval(tick)
+    if (remaining <= 0) clearInterval(tick)
   }, 1000)
 
-  timer = window.setTimeout(() => {
+  runTimer = window.setTimeout(() => {
     runIndex++
     playStep()
-  }, step.durationMin * 60 * 1000)
-}
-
-/* ===== TEST ===== */
-function startTest() {
-  playFrequency(440)
-  status.value = 'Test 440 Hz'
-}
-
-function stopAll() {
-  stopSound()
+  }, step.duration * 1000)
 }
 </script>
 
@@ -148,6 +152,6 @@ function stopAll() {
   padding: 16px;
   border-radius: 16px;
   color: white;
-  background: linear-gradient(180deg, #0b2c4d, #7ecbff);
+  background: linear-gradient(180deg, #0a2a43, #6ec6ff);
 }
 </style>
