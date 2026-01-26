@@ -1,172 +1,52 @@
 {
   "stress": {
     "label": "💙 Stress / Anxiété",
-    "steps": [
-      { "freq": 396, "duration": 7 },
-      { "freq": 417, "duration": 7 },
-      { "freq": 432, "duration": 7 }
-    ]
+    "minutes": 21,
+    "freq": 396
   },
-
   "sommeil": {
     "label": "🌙 Sommeil profond",
-    "steps": [
-      { "freq": 174, "duration": 15 }
-    ]
+    "minutes": 15,
+    "freq": 174
   },
-
   "detox": {
     "label": "🌿 Détoxification",
-    "steps": [
-      { "freq": 396, "duration": 10 },
-      { "freq": 528, "duration": 10 }
-    ]
+    "minutes": 20,
+    "freq": 528
   },
-
   "meditation": {
     "label": "🧘 Méditation",
-    "steps": [
-      { "freq": 432, "duration": 16 }
-    ]
+    "minutes": 16,
+    "freq": 432
   },
-
   "respiration": {
-    "label": "🌬 Respiration",
-    "steps": [
-      { "freq": 174, "duration": 15 }
-    ]
+    "label": "🌬️ Respiration",
+    "minutes": 15,
+    "freq": 174
   },
-
   "concentration": {
     "label": "🎯 Concentration",
-    "steps": [
-      { "freq": 528, "duration": 10 }
-    ]
+    "minutes": 10,
+    "freq": 285
   },
-
   "memoire": {
     "label": "🧠 Mémoire",
-    "steps": [
-      { "freq": 741, "duration": 20 }
-    ]
+    "minutes": 20,
+    "freq": 852
   },
-
-  "creativite": {
-    "label": "🎨 Créativité",
-    "steps": [
-      { "freq": 417, "duration": 15 }
-    ]
-  },
-
   "joie": {
     "label": "😊 Joie / Humeur",
-    "steps": [
-      { "freq": 528, "duration": 20 }
-    ]
+    "minutes": 20,
+    "freq": 639
   },
-
   "immunite": {
-    "label": "🛡 Immunité",
-    "steps": [
-      { "freq": 285, "duration": 15 }
-    ]
+    "label": "🛡️ Immunité",
+    "minutes": 15,
+    "freq": 741
   },
-
-  "digestion": {
-    "label": "🍽 Digestion",
-    "steps": [
-      { "freq": 741, "duration": 20 }
-    ]
-  },
-
   "coeur": {
     "label": "❤️ Cœur",
-    "steps": [
-      { "freq": 639, "duration": 15 }
-    ]
-  },
-
-  "poumons": {
-    "label": "🫁 Poumons",
-    "steps": [
-      { "freq": 174, "duration": 15 }
-    ]
-  },
-
-  "foie": {
-    "label": "🧪 Foie",
-    "steps": [
-      { "freq": 528, "duration": 20 }
-    ]
-  },
-
-  "reins": {
-    "label": "💧 Reins",
-    "steps": [
-      { "freq": 417, "duration": 15 }
-    ]
-  },
-
-  "intestin": {
-    "label": "🧬 Intestin",
-    "steps": [
-      { "freq": 741, "duration": 15 }
-    ]
-  },
-
-  "chakra_racine": {
-    "label": "🔴 Chakra Racine",
-    "steps": [
-      { "freq": 396, "duration": 20 }
-    ]
-  },
-
-  "chakra_sacral": {
-    "label": "🟠 Chakra Sacral",
-    "steps": [
-      { "freq": 417, "duration": 15 }
-    ]
-  },
-
-  "chakra_plexus": {
-    "label": "🟡 Chakra Plexus",
-    "steps": [
-      { "freq": 528, "duration": 15 }
-    ]
-  },
-
-  "chakra_coeur": {
-    "label": "🟢 Chakra Cœur",
-    "steps": [
-      { "freq": 639, "duration": 15 }
-    ]
-  },
-
-  "chakra_gorge": {
-    "label": "🔵 Chakra Gorge",
-    "steps": [
-      { "freq": 741, "duration": 15 }
-    ]
-  },
-
-  "chakra_oeil": {
-    "label": "🟣 Chakra 3e Œil",
-    "steps": [
-      { "freq": 852, "duration": 15 }
-    ]
-  },
-
-  "chakra_couronne": {
-    "label": "⚪ Chakra Couronne",
-    "steps": [
-      { "freq": 963, "duration": 15 }
-    ]
-  },
-
-  "anti_fatigue": {
-    "label": "⚡ Anti-fatigue",
-    "steps": [
-      { "freq": 528, "duration": 15 }
-    ]
+    "minutes": 15,
+    "freq": 528
   }
 }
