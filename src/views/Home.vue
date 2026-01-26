@@ -386,18 +386,6 @@ function playStep() {
   padding: 16px;
   border-radius: 16px;
   color: white;
-  background: linear-gradient(
-    180deg,
-    #0a2a43,
-    #6ec6ff
-  );
-}
-  <style scoped>
-.stress-card {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 16px;
-  color: white;
   background: linear-gradient(180deg, #0b2c4d, #7ecbff);
 }
 </style>
