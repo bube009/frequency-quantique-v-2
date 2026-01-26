@@ -1,4 +1,4 @@
-<template>
+p<template>
   <ion-page>
     <ion-header>
       <ion-toolbar>
@@ -14,10 +14,15 @@
         :key="p.id"
         class="card"
       >
-        <div class="left">
-          <h2>{{ p.title }}</h2>
-          <p>{{ p.freq }} Hz — {{ p.min }} min</p>
-          <p class="bio">Bio : {{ bioValue }}</p>
+        <!-- COURBE VISUELLE -->
+<div class="wave-container">
+  <svg viewBox="0 0 300 80" preserveAspectRatio="none">
+    <path
+      d="M0,40 Q30,10 60,40 T120,40 T180,40 T240,40 T300,40"
+      class="wave-path"
+    />
+  </svg>
+</div>
 
           <ion-button @click="start(p)" color="primary">
             Démarrer
@@ -113,6 +118,28 @@ onUnmounted(stop)
 .bio {
   font-size: 0.9em;
   opacity: 0.85;
+}
+  .wave-container {
+  width: 100%;
+  height: 60px;
+  margin: 12px 0;
+}
+
+.wave-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+.wave-path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.8);
+  stroke-width: 3;
+  animation: waveMove 3s linear infinite;
+}
+
+@keyframes waveMove {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -200; }
 }
 </style>
 ion-content {
