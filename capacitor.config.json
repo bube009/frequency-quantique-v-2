@@ -3,9 +3,9 @@
   "appName": "Frequency Quantique",
   "webDir": "dist",
   "ios": {
-    "buildNumber": "24",
+    "buildNumber": "25",
     "infoPlist": {
-      "CFBundleVersion": "24"
+      "CFBundleVersion": "25"
     }
   }
 }
