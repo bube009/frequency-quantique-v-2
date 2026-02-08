@@ -83,7 +83,15 @@ function play(p: any) {
   }
 
   // Stop ancien son
-  stop()
+  function stop() {
+  if (oscillator) {
+    oscillator.stop()
+    oscillator.disconnect()
+    oscillator = null
+  }
+  currentId.value = null
+  status.value = 'Fréquence arrêtée'
+}
 
   oscillator = audioCtx.createOscillator()
   gainNode = audioCtx.createGain()
