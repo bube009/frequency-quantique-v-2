@@ -1,52 +1,27 @@
 {
-  "stress": {
-    "label": "💙 Stress / Anxiété",
-    "minutes": 21,
-    "freq": 396
-  },
-  "sommeil": {
-    "label": "🌙 Sommeil profond",
-    "minutes": 15,
-    "freq": 174
-  },
-  "detox": {
-    "label": "🌿 Détoxification",
-    "minutes": 20,
-    "freq": 528
-  },
-  "meditation": {
-    "label": "🧘 Méditation",
-    "minutes": 16,
-    "freq": 432
-  },
-  "respiration": {
-    "label": "🌬️ Respiration",
-    "minutes": 15,
-    "freq": 174
-  },
-  "concentration": {
-    "label": "🎯 Concentration",
-    "minutes": 10,
-    "freq": 285
-  },
-  "memoire": {
-    "label": "🧠 Mémoire",
-    "minutes": 20,
-    "freq": 852
-  },
-  "joie": {
-    "label": "😊 Joie / Humeur",
-    "minutes": 20,
-    "freq": 639
-  },
-  "immunite": {
-    "label": "🛡️ Immunité",
-    "minutes": 15,
-    "freq": 741
-  },
-  "coeur": {
-    "label": "❤️ Cœur",
-    "minutes": 15,
-    "freq": 528
-  }
+  "stress": { "label": "💙 Stress – Général", "freq": 396, "duration": 15 },
+  "anxiete": { "label": "😰 Anxiété", "freq": 417, "duration": 21 },
+  "sommeil": { "label": "🌙 Sommeil profond", "freq": 174, "duration": 15 },
+  "detox": { "label": "🌿 Détoxification", "freq": 528, "duration": 20 },
+  "meditation": { "label": "🧘 Méditation", "freq": 432, "duration": 16 },
+  "respiration": { "label": "🌬 Respiration", "freq": 285, "duration": 15 },
+  "concentration": { "label": "🎯 Concentration", "freq": 852, "duration": 10 },
+  "memoire": { "label": "🧠 Mémoire", "freq": 741, "duration": 20 },
+  "joie": { "label": "😊 Joie / Humeur", "freq": 639, "duration": 20 },
+  "immunite": { "label": "🛡 Immunité", "freq": 528, "duration": 15 },
+  "digestion": { "label": "🍽 Digestion", "freq": 317, "duration": 20 },
+  "coeur": { "label": "❤️ Cœur", "freq": 528, "duration": 15 },
+  "poumons": { "label": "🫁 Poumons", "freq": 285, "duration": 15 },
+  "foie": { "label": "🧪 Foie", "freq": 528, "duration": 20 },
+  "reins": { "label": "💧 Reins", "freq": 417, "duration": 15 },
+  "intestin": { "label": "🧬 Intestin", "freq": 317, "duration": 15 },
+  "chakra1": { "label": "🔴 Chakra Racine", "freq": 396, "duration": 15 },
+  "chakra2": { "label": "🟠 Chakra Sacral", "freq": 417, "duration": 15 },
+  "chakra3": { "label": "🟡 Chakra Plexus", "freq": 528, "duration": 15 },
+  "chakra4": { "label": "🟢 Chakra Cœur", "freq": 639, "duration": 15 },
+  "chakra5": { "label": "🔵 Chakra Gorge", "freq": 741, "duration": 15 },
+  "chakra6": { "label": "🟣 Chakra 3e Œil", "freq": 852, "duration": 15 },
+  "chakra7": { "label": "⚪ Chakra Couronne", "freq": 963, "duration": 15 },
+  "fatigue": { "label": "⚡ Anti-fatigue", "freq": 528, "duration": 15 },
+  "harmonie": { "label": "✨ Harmonie globale", "freq": 432, "duration": 20 }
 }
