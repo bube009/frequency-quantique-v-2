@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content fullscreen scroll-y="true" class="bg">
+    <ion-content class="bg" fullscreen>
       <div
         v-for="p in programs"
         :key="p.id"
