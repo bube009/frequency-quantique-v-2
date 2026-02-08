@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { suggestFrequency } from '/services/pulse'
+'import pulseService from '../services/pulse'
 
 const bpm = ref(72)
 const suggestion = ref(
