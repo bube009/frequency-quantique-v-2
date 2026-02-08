@@ -73,15 +73,32 @@ const programs = ref([
 ])
 
 function play(p: any) {
+  // 🔔 iOS unlock
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+  }
+
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume()
+  }
+
+  // Stop ancien son
+  stop()
+
+  oscillator = audioCtx.createOscillator()
+  gainNode = audioCtx.createGain()
+
+  oscillator.type = 'sine'
+  oscillator.frequency.value = p.freq
+  gainNode.gain.value = 0.15
+
+  oscillator.connect(gainNode)
+  gainNode.connect(audioCtx.destination)
+
+  oscillator.start()
+
   currentId.value = p.id
   status.value = `Lecture ${p.freq} Hz`
-  // ici tu branches ton audio engine
-}
-
-function stop() {
-  currentId.value = null
-  status.value = 'Fréquence arrêtée'
-  // ici tu stop le son
 }
 </script>
 
