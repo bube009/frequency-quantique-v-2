@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content fullscreen>
+    <ion-content fullscreen scroll-y="true">
       <div class="page">
 
         <p class="status">
