@@ -1,4 +1,5 @@
 <template>
+  <h1 style="color:red">HOME OK</h1>
   <ion-page>
     <ion-header>
       <ion-toolbar>
