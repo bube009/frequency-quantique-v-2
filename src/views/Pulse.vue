@@ -1,21 +1,30 @@
 <template>
   <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Pouls</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
     <ion-content class="bg">
-      <h2>Pouls</h2>
-      <p>BPM détecté : {{ bpm }}</p>
-      <p>Suggestion : {{ suggestion }}</p>
+      <h2>{{ bpm }} BPM</h2>
+      <p>État : {{ state }}</p>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import pulseService from '../services/pulse'
+import { ref, onMounted } from 'vue'
 
 const bpm = ref(72)
-const suggestion = ref(
-  suggestFrequency(bpm.value).label
-)
+const state = ref('Normal')
+
+onMounted(() => {
+  setInterval(() => {
+    bpm.value = 60 + Math.floor(Math.random() * 30)
+    state.value = bpm.value > 85 ? 'Stress' : 'Calme'
+  }, 3000)
+})
 </script>
 
 <style scoped>
