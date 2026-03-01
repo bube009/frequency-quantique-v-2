@@ -1,24 +1,39 @@
-let ctx: AudioContext | null = null
-let osc: OscillatorNode | null = null
+let audioCtx: AudioContext | null = null
+let oscillator: OscillatorNode | null = null
+let gainNode: GainNode | null = null
 
-export function playFreq(freq: number) {
-  stopAudio()
-  ctx = new AudioContext()
-  osc = ctx.createOscillator()
-  osc.type = 'sine'
-  osc.frequency.value = freq
-  osc.connect(ctx.destination)
-  osc.start()
+export function playFrequency(freq: number) {
+  stopFrequency()
+
+  audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+
+  oscillator = audioCtx.createOscillator()
+  gainNode = audioCtx.createGain()
+
+  oscillator.type = 'sine'
+  oscillator.frequency.value = freq
+  gainNode.gain.value = 0.15
+
+  oscillator.connect(gainNode)
+  gainNode.connect(audioCtx.destination)
+
+  oscillator.start()
 }
 
-export function stopAudio() {
-  if (osc) {
-    osc.stop()
-    osc.disconnect()
-    osc = null
+export function stopFrequency() {
+  if (oscillator) {
+    oscillator.stop()
+    oscillator.disconnect()
+    oscillator = null
   }
-  if (ctx) {
-    ctx.close()
-    ctx = null
+
+  if (gainNode) {
+    gainNode.disconnect()
+    gainNode = null
+  }
+
+  if (audioCtx) {
+    audioCtx.close()
+    audioCtx = null
   }
 }
