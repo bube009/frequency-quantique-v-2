@@ -1,36 +1,16 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router'
 
 import Home from '@/views/Home.vue'
+import Session from '@/views/Session.vue'
 import Pulse from '@/views/Pulse.vue'
 import SkyCamera from '@/views/SkyCamera.vue'
-import HeartScan from '@/views/HeartScan.vue'
-import Grimoire from '@/views/Grimoire.vue'
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/home',
-  },
-  {
-    path: '/home',
-    component: Home,
-  },
-  {
-    path: '/pulse',
-    component: Pulse,
-  },
-  {
-    path: '/sky',
-    component: SkyCamera,
-  },
-  {
-    path: '/heart',
-    component: HeartScan,
-  },
-  {
-    path: '/grimoire',
-    component: Grimoire,
-  },
+  { path: '/', redirect: '/home' },
+  { path: '/home', component: Home },
+  { path: '/session', component: Session },
+  { path: '/pulse', component: Pulse },
+  { path: '/sky', component: SkyCamera },
 ]
 
 const router = createRouter({
