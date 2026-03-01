@@ -6,31 +6,32 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="bg">
-      <h2>{{ bpm }} BPM</h2>
-      <p>État : {{ state }}</p>
+    <ion-content class="bg" fullscreen>
+      <div class="center">
+        <h1>{{ bpm }} bpm</h1>
+        <ion-button @click="simulate">Scanner</ion-button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-const bpm = ref(72)
-const state = ref('Normal')
+const bpm = ref(0)
 
-onMounted(() => {
-  setInterval(() => {
-    bpm.value = 60 + Math.floor(Math.random() * 30)
-    state.value = bpm.value > 85 ? 'Stress' : 'Calme'
-  }, 3000)
-})
+function simulate() {
+  bpm.value = 60 + Math.floor(Math.random() * 40)
+}
 </script>
 
 <style scoped>
 .bg {
-  --background: linear-gradient(180deg, #081a2f, #0e3a66);
-  color: white;
+  --background: linear-gradient(180deg, #061d3a, #0a2a4d);
+}
+.center {
   text-align: center;
+  margin-top: 50px;
+  color: white;
 }
 </style>
