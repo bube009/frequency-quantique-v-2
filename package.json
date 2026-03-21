@@ -1,6 +1,6 @@
 {
   "name": "frequency-quantique-v2",
-  "version": "34",
+  "version": "1.0.1,
   "private": true,
   "scripts": {
     "dev": "vite",
