@@ -10,12 +10,12 @@ const routes = [
   { path: '/home', component: Home },
   { path: '/session', component: Session },
   { path: '/pulse', component: Pulse },
-  { path: '/sky', component: SkyCamera },
+  { path: '/sky', component: SkyCamera }
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes,
+  routes
 })
 
 export default router
