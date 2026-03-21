@@ -4,7 +4,6 @@ import router from './router'
 
 import { IonicVue } from '@ionic/vue'
 
-// Ionic CSS (essentiel)
 import '@ionic/vue/css/core.css'
 import '@ionic/vue/css/normalize.css'
 import '@ionic/vue/css/structure.css'
