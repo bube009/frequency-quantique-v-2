@@ -9,22 +9,22 @@
 	<string>Frequency Quantique</string>
 
 	<key>CFBundleIdentifier</key>
-	<string>(34)</string>
+	<string>com.alexfournier.frequencyquantique</string>
 
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 
 	<key>CFBundleName</key>
-	<string>(PRODUCT_NAME)</string>
+	<string>$(PRODUCT_NAME)</string>
 
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
 	<key>CFBundleShortVersionString</key>
-	<string>(1.0.0)</string>
+	<string>1.0.0</string>
 
 	<key>CFBundleVersion</key>
-	<string>(34)</string>
+	<string>34</string>
 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -34,9 +34,6 @@
 
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
 
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
@@ -57,5 +54,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 </dict>
 </plist>
