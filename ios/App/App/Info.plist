@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -10,11 +10,10 @@
   <string>Frequency Quantique</string>
 
   <key>CFBundleIdentifier</key>
-   <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 
-
-  <ykey>CFBundleInfoDictionaryVersion</key>
-<string>33</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>34</string>
 
   <key>CFBundleName</key>
   <string>$(PRODUCT_NAME)</string>
@@ -23,10 +22,10 @@
   <string>APPL</string>
 
   <key>CFBundleShortVersionString</key>
-<string>1.0.1</string>
+  <string>$(MARKETING_VERSION)</string>
 
-<key>CFBundleVersion</key>
-<string>33</string>
+  <key>CFBundleVersion</key>
+  <string>$(CURRENT_PROJECT_VERSION)</string>
 
   <key>LSRequiresIPhoneOS</key>
   <true/>
@@ -61,7 +60,3 @@
 
   <!-- Si tu utilises le micro plus tard -->
   <key>NSMicrophoneUsageDescription</key>
-  <string>Le micro peut être utilisé pour générer des sons de fréquence.</string>
-
-</dict>
-</plist>
