@@ -9,13 +9,13 @@
 	<string>Frequency Quantique</string>
 
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>(34)</string>
 
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>(PRODUCT_NAME)</string>
 
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -24,7 +24,7 @@
 	<string>(1.0.0)</string>
 
 	<key>CFBundleVersion</key>
-	<string>$(34)</string>
+	<string>(34)</string>
 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
