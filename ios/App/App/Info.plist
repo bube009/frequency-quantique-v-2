@@ -8,9 +8,6 @@
 	<key>CFBundleDisplayName</key>
 	<string>Frequency Quantique</string>
 
-	<key>CFBundleExecutable</key>
-	<string>EXECUTABLE_NAME</string>
-
 	<key>CFBundleIdentifier</key>
 	<string>com.alexfournier.frequencyquantique</string>
 
@@ -18,7 +15,7 @@
 	<string>6.0</string>
 
 	<key>CFBundleName</key>
-	<string>PRODUCT_NAME</string>
+	<string>$(PRODUCT_NAME)</string>
 
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
