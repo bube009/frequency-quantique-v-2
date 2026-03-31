@@ -40,67 +40,7 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, onBeforeUnmount } from 'vue'
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButtons,
-  IonBackButton,
-  IonButton
-} from '@ionic/vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-const id = Number(route.params.id)
-
-const allPrograms = [
-  { id: 1, title: 'Relaxation', freq: 432, category: 'Bien-être', duration: 60 },
-  { id: 2, title: 'Sommeil', freq: 528, category: 'Repos', duration: 90 },
-  { id: 3, title: 'Énergie', freq: 741, category: 'Vitalité', duration: 45 }
-]
-
-const program =
-  allPrograms.find((p) => p.id === id) ||
-  { id: 0, title: 'Programme inconnu', freq: 0, category: 'N/A', duration: 0 }
-
-const status = ref('Fréquence arrêtée')
-const timeLeft = ref(program.duration)
-let timer: number | null = null
-
-function startSession() {
-  stopSession()
-  status.value = `Lecture ${program.freq} Hz`
-  timeLeft.value = program.duration
-
-  timer = window.setInterval(() => {
-    if (timeLeft.value > 0) {
-      timeLeft.value -= 1
-    } else {
-      stopSession()
-    }
-  }, 1000)
-}
-
-function stopSession() {
-  status.value = 'Fréquence arrêtée'
-  if (timer !== null) {
-    clearInterval(timer)
-    timer = null
-  }
-}
-
-onBeforeUnmount(() => {
-  stopSession()
-})
-</script>
-
-<style scoped>
-.hero {
-  background: linear-gradient(135deg, #0a2a5a, #123d85);
+135deg, #0a2a5a, #123d85);
   color: white;
   padding: 22px;
   border-radius: 22px;
@@ -151,3 +91,99 @@ onBeforeUnmount(() => {
   gap: 12px;
 }
 </style>
+<script setup lang="ts">
+import { ref, onBeforeUnmount } from 'vue'
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonBackButton,
+  IonButton
+} from '@ionic/vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const id = Number(route.params.id)
+
+const allPrograms = [
+  { id: 1, title: 'Relaxation', freq: 432, category: 'Bien-être', duration: 60 },
+  { id: 2, title: 'Sommeil', freq: 528, category: 'Repos', duration: 90 },
+  { id: 3, title: 'Énergie', freq: 741, category: 'Vitalité', duration: 45 }
+]
+
+const program =
+  allPrograms.find((p) => p.id === id) ||
+  { id: 0, title: 'Programme inconnu', freq: 0, category: 'N/A', duration: 0 }
+
+const status = ref('Fréquence arrêtée')
+const timeLeft = ref(program.duration)
+
+let timer: number | null = null
+
+// 🔊 AUDIO
+let audioCtx: AudioContext | null = null
+let oscillator: OscillatorNode | null = null
+
+function startSound(freq: number) {
+  audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+  oscillator = audioCtx.createOscillator()
+
+  oscillator.type = 'sine'
+  oscillator.frequency.value = freq
+
+  oscillator.connect(audioCtx.destination)
+  oscillator.start()
+}
+
+function stopSound() {
+  if (oscillator) {
+    oscillator.stop()
+    oscillator.disconnect()
+    oscillator = null
+  }
+
+  if (audioCtx) {
+    audioCtx.close()
+    audioCtx = null
+  }
+}
+
+// ▶ START
+function startSession() {
+  stopSession()
+
+  status.value = `Lecture ${program.freq} Hz`
+  timeLeft.value = program.duration
+
+  // 🔊 lance le son
+  startSound(program.freq)
+
+  timer = window.setInterval(() => {
+    if (timeLeft.value > 0) {
+      timeLeft.value -= 1
+    } else {
+      stopSession()
+    }
+  }, 1000)
+}
+
+// ⛔ STOP
+function stopSession() {
+  status.value = 'Fréquence arrêtée'
+
+  if (timer !== null) {
+    clearInterval(timer)
+    timer = null
+  }
+
+  stopSound()
+}
+
+// 🧹 nettoyage
+onBeforeUnmount(() => {
+  stopSession()
+})
+</script>
