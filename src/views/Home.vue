@@ -45,9 +45,32 @@ const router = useRouter()
 const status = 'Fréquence arrêtée'
 
 const programs = [
-  { id: 1, title: 'Relaxation', freq: 432, category: 'Bien-être' },
-  { id: 2, title: 'Sommeil', freq: 528, category: 'Repos' },
-  { id: 3, title: 'Énergie', freq: 741, category: 'Vitalité' }
+  { id: 1, export const programs = [
+  {
+    id: 1,
+    title: 'Relaxation',
+    category: 'Bien-être',
+    steps: [
+      { freq: 432, duration: 60 }
+    ]
+  },
+  {
+    id: 2,
+    title: 'Sommeil profond',
+    category: 'Repos',
+    steps: [
+      { freq: 528, duration: 90 }
+    ]
+  },
+  {
+    id: 3,
+    title: 'Énergie vitale',
+    category: 'Vitalité',
+    steps: [
+      { freq: 741, duration: 45 }
+    ]
+  }
+]
 ]
 
 function openProgram(p: { id: number }) {
