@@ -2,14 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>fr</string>
 
 	<key>CFBundleDisplayName</key>
 	<string>Frequency Quantique</string>
 
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+
 	<key>CFBundleIdentifier</key>
-	<string>com.alexfournier.frequencyquantique</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
@@ -24,7 +28,7 @@
 	<string>1.0.0</string>
 
 	<key>CFBundleVersion</key>
-	<string>35</string>
+	<string>34</string>
 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -57,5 +61,14 @@
 
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+	<!-- 🔐 PERMISSIONS OBLIGATOIRES -->
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permet d’accéder aux photos pour analyser les images et révéler des structures vibratoires.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Permet de prendre des photos pour analyser l’environnement et les fréquences.</string>
+
 </dict>
 </plist>
