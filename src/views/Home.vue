@@ -8,7 +8,7 @@
 
     <ion-content fullscreen class="ion-padding">
       <div class="status">
-        Statut : <strong>{{ status }}</strong>
+        Statut : <strong>Fréquence arrêtée</strong>
       </div>
 
       <div
@@ -19,7 +19,9 @@
       >
         <div class="left">
           <div class="title">{{ p.title }}</div>
-          <div class="meta">{{ p.freq }} Hz</div>
+          <div class="meta">
+            {{ firstFreq(p) }} Hz
+          </div>
           <div class="pill">{{ p.category }}</div>
         </div>
 
@@ -40,41 +42,26 @@ import {
   IonContent
 } from '@ionic/vue'
 import { useRouter } from 'vue-router'
+import { programs } from '@/data/programs'
+
+type Program = {
+  id: number
+  title: string
+  category: string
+  steps?: Array<{
+    freq: number
+    duration: number
+  }>
+}
 
 const router = useRouter()
-const status = 'Fréquence arrêtée'
 
-const programs = [
-  { id: 1, export const programs = [
-  {
-    id: 1,
-    title: 'Relaxation',
-    category: 'Bien-être',
-    steps: [
-      { freq: 432, duration: 60 }
-    ]
-  },
-  {
-    id: 2,
-    title: 'Sommeil profond',
-    category: 'Repos',
-    steps: [
-      { freq: 528, duration: 90 }
-    ]
-  },
-  {
-    id: 3,
-    title: 'Énergie vitale',
-    category: 'Vitalité',
-    steps: [
-      { freq: 741, duration: 45 }
-    ]
-  }
-]
-]
-
-function openProgram(p: { id: number }) {
+function openProgram(p: Program) {
   router.push(`/session/${p.id}`)
+}
+
+function firstFreq(p: Program): number {
+  return p.steps?.[0]?.freq ?? 0
 }
 </script>
 
@@ -95,6 +82,10 @@ function openProgram(p: { id: number }) {
   color: white;
 }
 
+.left {
+  flex: 1;
+}
+
 .title {
   font-size: 22px;
   font-weight: bold;
@@ -102,13 +93,14 @@ function openProgram(p: { id: number }) {
 
 .meta {
   margin-top: 6px;
-  opacity: 0.8;
+  opacity: 0.85;
+  font-size: 18px;
 }
 
 .pill {
   margin-top: 10px;
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .right {
