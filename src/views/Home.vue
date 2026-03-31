@@ -7,7 +7,6 @@
     </ion-header>
 
     <ion-content fullscreen class="ion-padding">
-
       <div class="status">
         Statut : <strong>{{ status }}</strong>
       </div>
@@ -28,7 +27,6 @@
           <div class="miniWave"></div>
         </div>
       </div>
-
     </ion-content>
   </ion-page>
 </template>
@@ -41,23 +39,19 @@ import {
   IonTitle,
   IonContent
 } from '@ionic/vue'
-
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 const status = 'Fréquence arrêtée'
 
-// ⚠️ DATA SIMPLE (pas de fichier externe pour éviter crash)
 const programs = [
   { id: 1, title: 'Relaxation', freq: 432, category: 'Bien-être' },
   { id: 2, title: 'Sommeil', freq: 528, category: 'Repos' },
   { id: 3, title: 'Énergie', freq: 741, category: 'Vitalité' }
 ]
 
-function openProgram(p: any) {
-  console.log('ouvrir', p)
-  // plus tard on remettra navigation
+function openProgram(p: { id: number }) {
+  router.push(`/session/${p.id}`)
 }
 </script>
 
